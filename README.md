@@ -9,7 +9,7 @@ pub fn main() {
     println!("{:?}", config);
 }
 // `Deserialize` is required by `cargo add serde --features derive`
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Deserialize)]
 struct Config {
     hello: String,
 }
