@@ -3,7 +3,7 @@ name = "get_config"
 version = "0.1.0"
 edition = "2021"
 description = "A simple function to get config from a file"
-license = "mit"
+license = "MIT"
 repository = "https://github.com/Banyc/get_config"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
