@@ -1,7 +1,7 @@
-use std::{fs::File, io::Read};
-
 use serde::Deserialize;
 use thiserror::Error;
+
+use crate::config_string;
 
 const DEFAULT_CONFIG_PATH: &str = "config.toml";
 
@@ -17,11 +17,8 @@ pub fn get_config<C>() -> Result<C, ConfigError>
 where
     C: for<'de> Deserialize<'de> + std::fmt::Debug,
 {
-    let config_path = config_path();
-    let mut config_file = File::open(config_path)?;
-    let mut config = String::new();
-    config_file.read_to_string(&mut config)?;
-    let config = toml::from_str(&config)?;
+    let config_string = config_string(&config_path())?;
+    let config = toml::from_str(&config_string)?;
 
     Ok(config)
 }
