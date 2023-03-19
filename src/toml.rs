@@ -1,3 +1,5 @@
+use std::path::{Path, PathBuf};
+
 use serde::Deserialize;
 use thiserror::Error;
 
@@ -17,12 +19,20 @@ pub fn get_config<C>() -> Result<C, ConfigError>
 where
     C: for<'de> Deserialize<'de> + std::fmt::Debug,
 {
-    let config_string = config_string(&config_path())?;
+    get_config_from_path(config_path())
+}
+
+pub fn config_path() -> PathBuf {
+    crate::config_path(DEFAULT_CONFIG_PATH)
+}
+
+pub fn get_config_from_path<C, P>(path: P) -> Result<C, ConfigError>
+where
+    C: for<'de> Deserialize<'de> + std::fmt::Debug,
+    P: AsRef<Path>,
+{
+    let config_string = config_string(path)?;
     let config = toml::from_str(&config_string)?;
 
     Ok(config)
-}
-
-pub fn config_path() -> String {
-    crate::config_path(DEFAULT_CONFIG_PATH)
 }
